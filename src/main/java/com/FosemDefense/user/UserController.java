@@ -7,7 +7,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 
 @Slf4j
 @Controller // IoC
@@ -44,14 +43,26 @@ public class UserController {
     }
 
     /**
+     * 로그아웃 처리 요청
+     *
+     * @return 메인 화면 반환
+     * 주소 설계 : http://localhost:8080/user/logout
+     */
+    @GetMapping("/user/logout")
+    public String logout(HttpSession session) {
+        // 세션 메모리에 내 정보를 없애 버림
+        session.invalidate();
+        return "redirect:/";
+    }
+
+    /**
      * 회원 가입 화면 요청
      *
      * @return 회원 가입 화면 반환
      * 주소 설계 - http://localhost:8080/join-form
      */
-    @GetMapping("/join-form")
+    @GetMapping("/user/join-form")
     public String joinFormPage() {
-
         return "user/join-form";
     }
 
@@ -61,7 +72,7 @@ public class UserController {
      * @return 메인 페이지 반환
      * 주소 설계 - http://localhost:8080/user/join
      */
-    @PutMapping("/join")
+    @PostMapping("/user/join")
     public String join(UserRequest.JoinDTO joinDTO) {
         joinDTO.validate();
         userService.joinUser(joinDTO);
@@ -95,51 +106,4 @@ public class UserController {
         userService.updateUser(sessionUser.getId(), updateDTO, session);
         return "redirect:/";
     }
-
-
-//
-//
-
-//
-
-//
-//    // 로그인 화면 요청
-//    // 주소 설계 - http://localhost:8080/login-form
-//    @GetMapping("/login-form")
-//    public String loginFormPage() {
-//        // 인증 검사 x , 유효성 x
-//        return "user/login-form";
-//    }
-//
-//    // 로그인 기능 요청
-//    @PostMapping("/login")
-//    public String loginProc(UserRequest.LoginDTO reqLoginDTO, HttpSession session) {
-//        // 인증 검사 x, 유효성 검사 o
-//        reqLoginDTO.validate();
-//        UserResponse.SessionDTO sessionDTO = userService.로그인(reqLoginDTO);
-//        session.setAttribute("sessionUser", sessionDTO);
-//        return "redirect:/";
-//    }
-//
-//
-//    // 로그아웃 기능 요청
-//    @GetMapping("/logout")
-//    public String logout(HttpSession session) {
-//        // 세션 메모리에 내 정보를 없애 버림
-//        session.invalidate();
-//        return "redirect:/";
-//    }
-//
-//
-//
-//    // 회원 가입 기능 요청
-//    // 주소 설계 - http://localhost:8080/join
-//    @PostMapping("/join")
-//    public String joinProc(UserRequest.JoinDTO joinDTO) {
-//        //  인증검사 x, 유효성 검사 하기 o
-//        joinDTO.validate();
-//        userService.회원가입(joinDTO);
-//        return "redirect:/login-form";
-//    }
-
 }
