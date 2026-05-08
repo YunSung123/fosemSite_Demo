@@ -10,6 +10,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class BoardService {
 
     private final BoardRepository boardRepository;
@@ -24,7 +25,6 @@ public class BoardService {
                 .orElseThrow(() -> new RuntimeException("게시글을 찾을 수 없습니다."));
     }
 
-    @Transactional(readOnly = true)
     public BoardResponse.DetailDTO findDetailPage(Integer id) {
 
         Board boardEntity = boardRepository.findByIdJoinUser(id).orElseThrow(() -> {
@@ -34,8 +34,18 @@ public class BoardService {
         return new BoardResponse.DetailDTO(boardEntity);
     }
 
+    @Transactional
     public void save(BoardRequest.SaveDTO saveDTO, User sessionUser) {
         Board board = saveDTO.toEntity(sessionUser);
-        Board savedBoardEntity = boardRepository.save(board);
+        boardRepository.save(board);
+    }
+
+    @Transactional
+    public void delate(Integer id, User sessionUser) {
+        Board boardEntity = boardRepository.findById(id).orElseThrow(
+                () -> new Exception404("게시글을 찾을 수 없습니다")
+        );
+        boardEntity.isOwner(sessionUser.getId());
+        boardRepository.deleteById(id);
     }
 }
