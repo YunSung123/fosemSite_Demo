@@ -20,9 +20,17 @@
             </a>
 
             <nav class="site-nav">
-                <a href="/" class="nav-link-custom">홈</a>
-                <a href="/board/save-form" class="nav-link-custom">글쓰기</a>
-                <a href="/user/login-form" class="nav-link-custom">로그인</a>
+                {{#sessionUser}}
+                    <span class="nav-link-custom">{{username}}님 환영합니다</span>
+                    <a href="/board/save-form" class="nav-link-custom">글쓰기</a>
+                    <a href="/user/update-form" class="nav-link-custom">회원정보보기</a>
+                    <a href="/logout" class="nav-link-custom">로그아웃</a>
+                {{/sessionUser}}
+
+                {{^sessionUser}}
+                    <a href="/user/join-form" class="nav-link-custom">회원가입</a>
+                    <a href="/user/login-form" class="nav-link-custom">로그인</a>
+                {{/sessionUser}}
             </nav>
 
         </div>

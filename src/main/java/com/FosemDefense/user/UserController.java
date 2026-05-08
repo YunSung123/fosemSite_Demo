@@ -4,6 +4,7 @@ import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -67,26 +68,40 @@ public class UserController {
         return "redirect:/";
     }
 
+    /**
+     * 회원정보 보기 요청
+     *
+     * @return 회원 정보 페이지 반환
+     * http://localhost:8080/user/update-form
+     */
+    @GetMapping("/user/update-form")
+    public String updateFormPage(HttpSession session, Model model) {
+        UserResponse.SessionDTO sessionUser = (UserResponse.SessionDTO) session.getAttribute("sessionUser");
+        UserResponse.SessionDTO sessionDTO = userService.showUserInfo(sessionUser.getId());
+        model.addAttribute("user", sessionDTO);
+        return "user/update-form";
+    }
+
+    /**
+     * 회원정보 처리 요청
+     *
+     * @return 회원 정보 페이지 반환
+     * http://localhost:8080/user/update-form
+     */
+    @PostMapping("/user/update")
+    public String update(UserRequest.UpdateDTO updateDTO, HttpSession session) {
+        updateDTO.validate();
+        UserResponse.SessionDTO sessionUser = (UserResponse.SessionDTO) session.getAttribute("sessionUser");
+        userService.updateUser(sessionUser.getId(), updateDTO, session);
+        return "redirect:/";
+    }
+
 
 //
 //
-//    // 프로필 수정 기능 요청
-//    @PostMapping("/user/update")
-//    public String updateProc(UserRequest.UpdateDTO updateDTO, HttpSession session) {
-//        updateDTO.validate();
-//        UserResponse.SessionDTO sessionUser = (UserResponse.SessionDTO) session.getAttribute("sessionUser");
-//        userService.회원정보수정(sessionUser.getId(), updateDTO, session);
-//        return "redirect:/";
-//    }
+
 //
-//    // 프로필 화면 요청
-//    @GetMapping("/user/update-form")
-//    public String updateFormPage(HttpSession session, Model model) {
-//        UserResponse.SessionDTO sessionUser = (UserResponse.SessionDTO) session.getAttribute("sessionUser");
-//        UserResponse.SessionDTO sessionDTO = userService.회원정보수정화면(sessionUser.getId());
-//        model.addAttribute("user", sessionDTO);
-//        return "user/update-form";
-//    }
+
 //
 //    // 로그인 화면 요청
 //    // 주소 설계 - http://localhost:8080/login-form
