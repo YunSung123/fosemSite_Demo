@@ -1,11 +1,37 @@
 {{> layout/header}}
-<div class="container p-5 flex-grow-1">
-    <h1>BadRequest 400</h1>
-    <hr>
-    <h4>{{msg}}</h4>
-    <div class="mb-3">
-        <a href="javascript:history.back()">이전 페이지</a>
-        <a href="/">메인 페이지</a>
-    </div>
-</div>
+
+<main class="error-page-wrap">
+    <section class="error-card">
+        <div class="error-top">
+            <div class="error-character yellow">?</div>
+
+            <div class="error-head-text">
+                <div class="error-kicker">Bad Request</div>
+                <h1 class="error-code">400</h1>
+                <h2 class="error-title">요청이 조금 꼬였어요</h2>
+            </div>
+        </div>
+
+        <hr class="error-divider">
+
+        <p class="error-desc">
+            입력값이 올바르지 않거나 요청 형식이 잘못되었습니다.
+            다시 한 번 내용을 확인해주세요.
+        </p>
+
+        <div class="error-msg">
+            {{msg}}
+        </div>
+
+        <div class="error-actions">
+            <a href="javascript:history.back()" class="btn-site btn-list">이전 페이지</a>
+            <a href="/" class="btn-site btn-gold">메인 페이지</a>
+        </div>
+
+        <p class="error-mini-guide">
+            포샘 수습병이 요청서를 다시 정리하고 있습니다.
+        </p>
+    </section>
+</main>
+
 {{> layout/footer}}

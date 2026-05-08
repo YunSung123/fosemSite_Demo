@@ -1,0 +1,210 @@
+{{> layout/header}}
+
+<style>
+    .detail-page {
+        max-width: 980px;
+        margin: 0 auto;
+        padding: 64px 20px 90px;
+    }
+
+    .detail-category {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 18px;
+        color: #d6b36a;
+        font-size: 14px;
+        font-weight: 900;
+        letter-spacing: 0.5px;
+    }
+
+    .detail-category::before {
+        content: "";
+        width: 28px;
+        height: 2px;
+        background: linear-gradient(90deg, #d6b36a, transparent);
+    }
+
+    .detail-title {
+        margin: 0;
+        color: #f4f7fb;
+        font-size: 42px;
+        font-weight: 900;
+        letter-spacing: -1.4px;
+        line-height: 1.25;
+    }
+
+    .detail-meta {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-top: 18px;
+        padding-bottom: 28px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+        color: #aeb6c3;
+        font-size: 15px;
+    }
+
+    .meta-label {
+        color: #d6b36a;
+        font-weight: 900;
+    }
+
+    .meta-divider {
+        width: 1px;
+        height: 13px;
+        background: rgba(255, 255, 255, 0.18);
+    }
+
+    .edit-form {
+        padding: 42px 0 56px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+    }
+
+    .form-block {
+        margin-bottom: 28px;
+    }
+
+    .form-label-custom {
+        display: block;
+        margin-bottom: 12px;
+        color: #d6b36a;
+        font-size: 14px;
+        font-weight: 900;
+        letter-spacing: 0.5px;
+    }
+
+    .form-input-custom,
+    .form-textarea-custom {
+        width: 100%;
+        padding: 0 18px;
+        border: 1px solid rgba(217, 222, 230, 0.18);
+        border-radius: 10px;
+        background: rgba(255, 255, 255, 0.045);
+        color: #f4f7fb;
+        font-size: 17px;
+        outline: none;
+        transition: all 0.18s ease;
+    }
+
+    .form-input-custom {
+        height: 54px;
+    }
+
+    .form-textarea-custom {
+        min-height: 260px;
+        padding-top: 18px;
+        resize: vertical;
+        line-height: 1.8;
+    }
+
+    .form-input-custom:focus,
+    .form-textarea-custom:focus {
+        border-color: rgba(214, 179, 106, 0.85);
+        background: rgba(255, 255, 255, 0.07);
+        box-shadow: 0 0 0 3px rgba(214, 179, 106, 0.12);
+    }
+
+    .detail-actions {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-top: 26px;
+    }
+
+    .action-right {
+        display: flex;
+        gap: 10px;
+    }
+
+    .btn-site {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 88px;
+        height: 42px;
+        padding: 0 18px;
+        border-radius: 8px;
+        font-weight: 900;
+        text-decoration: none;
+        transition: all 0.18s ease;
+        cursor: pointer;
+    }
+
+    .btn-list {
+        color: #d9dee6;
+        background: transparent;
+        border: 1px solid rgba(217, 222, 230, 0.35);
+    }
+
+    .btn-list:hover {
+        color: #ffffff;
+        border-color: #d6b36a;
+        background: rgba(214, 179, 106, 0.08);
+    }
+
+    .btn-edit {
+        color: #151922;
+        background: linear-gradient(180deg, #f3d98e 0%, #c99d42 100%);
+        border: 1px solid #d6b36a;
+    }
+
+    .btn-edit:hover {
+        color: #111318;
+        background: linear-gradient(180deg, #ffe8a3 0%, #d7aa4c 100%);
+        transform: translateY(-1px);
+    }
+</style>
+
+<main class="detail-page">
+
+    <div class="detail-category">
+        BOARD UPDATE
+    </div>
+
+    <h1 class="detail-title">
+        게시글 수정
+    </h1>
+
+    <div class="detail-meta">
+        <span class="meta-label">작성자</span>
+        <span>{{board.username}}</span>
+        <span class="meta-divider"></span>
+        <span>포샘디펜스 게시판</span>
+    </div>
+
+    <form action="/board/{{board.id}}/update" method="post" class="edit-form">
+
+        <div class="form-block">
+            <label for="title" class="form-label-custom">제목</label>
+            <input id="title"
+                   type="text"
+                   name="title"
+                   class="form-input-custom"
+                   value="{{board.title}}">
+        </div>
+
+        <div class="form-block">
+            <label for="content" class="form-label-custom">내용</label>
+            <textarea id="content"
+                      name="content"
+                      class="form-textarea-custom">{{board.content}}</textarea>
+        </div>
+
+        <div class="detail-actions">
+            <a href="/board/{{board.id}}" class="btn-site btn-list">
+                취소
+            </a>
+
+            <div class="action-right">
+                <button type="submit" class="btn-site btn-edit">
+                    수정 완료
+                </button>
+            </div>
+        </div>
+
+    </form>
+
+</main>
+
+{{> layout/footer}}

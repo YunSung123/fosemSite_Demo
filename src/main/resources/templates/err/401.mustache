@@ -1,11 +1,42 @@
 {{> layout/header}}
-<div class="container p-5 flex-grow-1">
-    <h1>Unauthorized 401</h1>
-    <hr>
-    <h4>{{msg}}</h4>
-    <div class="mb-3">
-        <a href="/login-form">로그인</a>
-        <a href="/">메인 페이지</a>
-    </div>
-</div>
+
+<main class="error-page-wrap">
+    <section class="error-card">
+        <div class="error-top">
+            <div class="error-character blue">🔒</div>
+
+            <div class="error-head-text">
+                <div class="error-kicker">Unauthorized</div>
+                <h1 class="error-code">401</h1>
+                <h2 class="error-title">로그인이 필요합니다</h2>
+            </div>
+        </div>
+
+        <hr class="error-divider">
+
+        <p class="error-desc">
+            이 구역은 로그인한 사용자만 접근할 수 있습니다.<br>
+            먼저 로그인 후 다시 시도해주세요.
+        </p>
+
+        <div class="error-msg">
+            {{msg}}
+        </div>
+
+        <div class="error-actions">
+            <a href="/user/login-form" class="btn-site btn-gold">
+                로그인하러 가기
+            </a>
+
+            <a href="/" class="btn-site btn-list">
+                메인 페이지
+            </a>
+        </div>
+
+        <p class="error-mini-guide">
+            포샘 경비병이 신분 확인을 요청하고 있습니다.
+        </p>
+    </section>
+</main>
+
 {{> layout/footer}}

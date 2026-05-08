@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
 
-@Slf4j
 @Controller
 @RequiredArgsConstructor
 public class BoardController {
@@ -53,7 +52,14 @@ public class BoardController {
      * 주소 설계 : http://localhost:8080/board/save-form
      */
     @GetMapping("/board/save-form")
-    public String showSaveForm() {
+    public String showSaveForm(HttpSession session) {
+        User sessionUser = (User) session.getAttribute("sessionUser");
+
+        // 인가 처리 : 로그인하지 않은 사용자는 글쓰기 화면 접근 불가
+        if (sessionUser == null) {
+            return "redirect:/user/login-form";
+        }
+
         return "board/save-form";
     }
 
@@ -69,5 +75,38 @@ public class BoardController {
         saveDTO.validate();
         boardService.save(saveDTO, sessionUser);
         return "redirect:/";
+    }
+
+    // 삭제 기능 요청
+    @PostMapping("/board/{id}/delete")
+    public String deleteProc(@PathVariable(name = "id") Integer id, HttpSession session) {
+        User sessionUser = (User) session.getAttribute("sessionUser");
+        boardService.delate(id, sessionUser);
+        return "redirect:/";
+    }
+
+
+    // http://localhost:8080/board/1/update-form
+    // 게시글 수정 화면 요청
+    @GetMapping("/board/{id}/update-form")
+    public String updateFormPage(@PathVariable(name = "id") Integer id,
+                                 Model model,
+                                 HttpSession session) {
+
+        User sessionUser = (User) session.getAttribute("sessionUser");
+        BoardResponse.DetailDTO detailDTO = boardService.updateForm(id, sessionUser);
+        model.addAttribute("board", detailDTO);
+        return "board/update-form";
+    }
+
+
+    @PostMapping("/board/{id}/update")
+    public String updateProc(@PathVariable(name = "id") Integer id,
+                             BoardRequest.UpdateDTO updateDTO,
+                             HttpSession session) {
+        User sessionUser = (User) session.getAttribute("sessionUser");
+        updateDTO.validate();
+        boardService.update(id, updateDTO, sessionUser);
+        return "redirect:/board/" + id;
     }
 }

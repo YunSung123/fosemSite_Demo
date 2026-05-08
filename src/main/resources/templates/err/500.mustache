@@ -1,11 +1,37 @@
 {{> layout/header}}
-<div class="container p-5 flex-grow-1">
-    <h1>Internal Server Error 500</h1>
-    <hr>
-    <h4>{{msg}}</h4>
-    <div class="mb-3">
-        <a href="/" class="btn btn-primary">메인 페이지</a>
-        <a href="javascript:location.reload()">새로고침</a>
-    </div>
-</div>
+
+<main class="error-page-wrap">
+    <section class="error-card">
+        <div class="error-top">
+            <div class="error-character gray">🤖</div>
+
+            <div class="error-head-text">
+                <div class="error-kicker">Internal Server Error</div>
+                <h1 class="error-code">500</h1>
+                <h2 class="error-title">시스템 오류가 발생했습니다</h2>
+            </div>
+        </div>
+
+        <hr class="error-divider">
+
+        <p class="error-desc">
+            서버 내부에서 예상치 못한 문제가 발생했습니다.
+            잠시 후 다시 시도하거나 관리자에게 문의해주세요.
+        </p>
+
+        <div class="error-msg">
+            {{msg}}
+        </div>
+
+        <div class="error-actions">
+            <a href="/" class="btn-site btn-gold">메인 페이지</a>
+            <a href="javascript:location.reload()" class="btn-site btn-list">새로고침</a>
+        </div>
+
+        <p class="error-mini-guide">
+            포샘 자동 정비 로봇이 시스템을 점검 중입니다.
+        </p>
+    </section>
+</main>
+
 {{> layout/footer}}

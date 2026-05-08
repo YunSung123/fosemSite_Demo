@@ -1,10 +1,37 @@
 {{> layout/header}}
-<div class="container p-5 flex-grow-1">
-    <h1>Not Found 404</h1>
-    <hr>
-    <h4>{{msg}}</h4>
-    <div class="mb-3">
-        <a href="/" class="btn btn-primary">메인 페이지</a>
-    </div>
-</div>
+
+<main class="error-page-wrap">
+    <section class="error-card">
+        <div class="error-top">
+            <div class="error-character purple">👻</div>
+
+            <div class="error-head-text">
+                <div class="error-kicker">Not Found</div>
+                <h1 class="error-code">404</h1>
+                <h2 class="error-title">페이지를 찾지 못했어요</h2>
+            </div>
+        </div>
+
+        <hr class="error-divider">
+
+        <p class="error-desc">
+            요청하신 페이지가 존재하지 않거나 이동되었을 수 있습니다.
+            주소를 다시 확인하거나 메인 화면으로 돌아가주세요.
+        </p>
+
+        <div class="error-msg">
+            {{msg}}
+        </div>
+
+        <div class="error-actions">
+            <a href="javascript:history.back()" class="btn-site btn-list">이전 페이지</a>
+            <a href="/" class="btn-site btn-gold">메인 페이지</a>
+        </div>
+
+        <p class="error-mini-guide">
+            길 잃은 유령 병사가 해당 페이지를 찾지 못했습니다.
+        </p>
+    </section>
+</main>
+
 {{> layout/footer}}
