@@ -1,0 +1,112 @@
+{{> layout/header}}
+
+<style>
+    .write-page {
+        max-width: 980px;
+        margin: 0 auto;
+        padding: 64px 20px 90px;
+    }
+
+    .write-form {
+        padding: 40px 0 56px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+    }
+
+    .form-block {
+        margin-bottom: 30px;
+    }
+
+    .form-label-custom {
+        display: block;
+        margin-bottom: 12px;
+        color: #d6b36a;
+        font-size: 14px;
+        font-weight: 900;
+        letter-spacing: 0.5px;
+    }
+
+    .form-input-custom,
+    .form-textarea-custom {
+        width: 100%;
+        border: 1px solid rgba(217, 222, 230, 0.18);
+        border-radius: 10px;
+        background: rgba(255, 255, 255, 0.045);
+        color: #f4f7fb;
+        font-size: 17px;
+        outline: none;
+        transition: all 0.18s ease;
+    }
+
+    .form-input-custom {
+        height: 54px;
+        padding: 0 18px;
+    }
+
+    .form-textarea-custom {
+        min-height: 280px;
+        padding: 18px;
+        resize: vertical;
+        line-height: 1.8;
+    }
+
+    .form-input-custom::placeholder,
+    .form-textarea-custom::placeholder {
+        color: #6f7886;
+    }
+
+    .form-input-custom:focus,
+    .form-textarea-custom:focus {
+        border-color: rgba(214, 179, 106, 0.85);
+        background: rgba(255, 255, 255, 0.07);
+        box-shadow: 0 0 0 3px rgba(214, 179, 106, 0.12);
+    }
+
+    .write-actions {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-top: 26px;
+    }
+</style>
+
+<main class="write-page">
+
+    <div class="page-category">
+        BOARD WRITE
+    </div>
+
+    <h1 class="page-title">
+        게시글 작성
+    </h1>
+
+    <p class="page-desc">
+        포샘디펜스 공지, 업데이트 내용, 개발 기록을 작성할 수 있습니다.
+    </p>
+
+    <form action="/board/save" method="post" class="write-form">
+
+        <div class="form-block">
+            <label for="title" class="form-label-custom">제목</label>
+            <input id="title" type="text" name="title" class="form-input-custom" placeholder="제목을 입력하세요">
+        </div>
+
+        <div class="form-block">
+            <label for="content" class="form-label-custom">내용</label>
+            <textarea id="content" name="content" class="form-textarea-custom" placeholder="내용을 입력하세요"></textarea>
+        </div>
+
+        <div class="write-actions">
+            <a href="/" class="btn-site btn-list">
+                글목록
+            </a>
+
+            <button type="submit" class="btn-site btn-gold">
+                글쓰기 완료
+            </button>
+        </div>
+
+    </form>
+
+</main>
+
+{{> layout/footer}}

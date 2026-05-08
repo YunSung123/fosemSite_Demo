@@ -1,0 +1,259 @@
+{{> layout/header}}
+
+<style>
+    body {
+        min-height: 100vh;
+        background:
+            radial-gradient(circle at top, rgba(214, 179, 106, 0.08), transparent 28%),
+            linear-gradient(180deg, #0f1115 0%, #141821 45%, #0f1115 100%);
+        color: #e9edf3;
+        font-family: Arial, sans-serif;
+    }
+
+    .site-header {
+        background: linear-gradient(135deg, #dfe3ea 0%, #9ea7b3 35%, #f5f7fa 50%, #9da6b2 65%, #d7dce3 100%);
+        border-bottom: 2px solid #d6b36a;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
+    }
+
+    .header-inner {
+        min-height: 78px;
+    }
+
+    .site-logo {
+        font-size: 32px;
+        font-weight: 900;
+        letter-spacing: 2px;
+
+        background: linear-gradient(180deg, #fff4c9 0%, #e7c76b 45%, #c89d3d 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+
+        -webkit-text-stroke: 1px rgba(73, 56, 18, 0.55);
+
+        text-shadow:
+            -1px -1px 0 rgba(60, 45, 15, 0.35),
+             1px -1px 0 rgba(60, 45, 15, 0.35),
+            -1px  1px 0 rgba(60, 45, 15, 0.35),
+             1px  1px 0 rgba(60, 45, 15, 0.35),
+             0 3px 7px rgba(0, 0, 0, 0.25);
+    }
+
+    .nav-link-custom {
+        margin-left: 22px;
+        text-decoration: none;
+        font-weight: 800;
+        color: #1e232b;
+        transition: all 0.2s ease;
+    }
+
+    .nav-link-custom:hover {
+        color: #9b7629;
+    }
+
+    .detail-page {
+        max-width: 980px;
+        margin: 0 auto;
+        padding: 64px 20px 90px;
+    }
+
+    .detail-category {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 18px;
+        color: #d6b36a;
+        font-size: 14px;
+        font-weight: 900;
+        letter-spacing: 0.5px;
+    }
+
+    .detail-category::before {
+        content: "";
+        width: 28px;
+        height: 2px;
+        background: linear-gradient(90deg, #d6b36a, transparent);
+    }
+
+    .detail-title {
+        margin: 0;
+        color: #f4f7fb;
+        font-size: 42px;
+        font-weight: 900;
+        letter-spacing: -1.4px;
+        line-height: 1.25;
+    }
+
+    .detail-meta {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-top: 18px;
+        padding-bottom: 28px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+        color: #aeb6c3;
+        font-size: 15px;
+    }
+
+    .meta-label {
+        color: #d6b36a;
+        font-weight: 900;
+    }
+
+    .meta-divider {
+        width: 1px;
+        height: 13px;
+        background: rgba(255, 255, 255, 0.18);
+    }
+
+    .content-area {
+        padding: 42px 0 56px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+    }
+
+    .content-label {
+        margin-bottom: 22px;
+        color: #9099a7;
+        font-size: 13px;
+        font-weight: 900;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+    }
+
+    .content-text {
+        color: #e5e9f0;
+        font-size: 18px;
+        line-height: 1.95;
+        white-space: pre-line;
+        word-break: keep-all;
+    }
+
+    .detail-actions {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-top: 26px;
+    }
+
+    .action-right {
+        display: flex;
+        gap: 10px;
+    }
+
+    .btn-site {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 88px;
+        height: 42px;
+        padding: 0 18px;
+        border-radius: 8px;
+        font-weight: 900;
+        text-decoration: none;
+        transition: all 0.18s ease;
+    }
+
+    .btn-list {
+        color: #d9dee6;
+        background: transparent;
+        border: 1px solid rgba(217, 222, 230, 0.35);
+    }
+
+    .btn-list:hover {
+        color: #ffffff;
+        border-color: #d6b36a;
+        background: rgba(214, 179, 106, 0.08);
+    }
+
+    .btn-edit {
+        color: #151922;
+        background: linear-gradient(180deg, #f3d98e 0%, #c99d42 100%);
+        border: 1px solid #d6b36a;
+    }
+
+    .btn-edit:hover {
+        color: #111318;
+        background: linear-gradient(180deg, #ffe8a3 0%, #d7aa4c 100%);
+        transform: translateY(-1px);
+    }
+
+    .btn-delete {
+        color: #ffffff;
+        background: rgba(184, 54, 54, 0.85);
+        border: 1px solid rgba(255, 120, 120, 0.25);
+    }
+
+    .btn-delete:hover {
+        color: #ffffff;
+        background: rgba(210, 65, 65, 0.95);
+        transform: translateY(-1px);
+    }
+
+    .delete-form {
+        display: inline;
+        margin: 0;
+    }
+
+    .site-footer {
+        margin-top: 40px;
+        padding: 28px 0;
+        background: linear-gradient(180deg, #d9dee6 0%, #aab2bd 40%, #9099a7 100%);
+        border-top: 2px solid #d6b36a;
+        box-shadow: 0 -4px 18px rgba(0, 0, 0, 0.18);
+    }
+
+    .footer-title {
+        font-weight: 900;
+        letter-spacing: 1px;
+        color: #1f252d;
+    }
+
+    .footer-sub {
+        color: #39414d;
+    }
+</style>
+
+<main class="detail-page">
+
+    <div class="detail-category">
+        BOARD DETAIL
+    </div>
+
+    <h1 class="detail-title">
+        {{board.title}}
+    </h1>
+
+    <div class="detail-meta">
+        <span class="meta-label">작성자</span>
+        <span>{{board.username}}</span>
+        <span class="meta-divider"></span>
+        <span>포샘디펜스 게시판</span>
+    </div>
+
+    <section class="content-area">
+        <div class="content-label">CONTENT</div>
+
+        <div class="content-text">{{board.content}}</div>
+    </section>
+
+    <div class="detail-actions">
+        <a href="/" class="btn-site btn-list">
+            글목록
+        </a>
+
+        <div class="action-right">
+            <a href="/board/{{board.id}}/update-form" class="btn-site btn-edit">
+                수정
+            </a>
+
+            <form action="/board/{{board.id}}/delete" method="post" class="delete-form">
+                <button type="submit" class="btn-site btn-delete">
+                    삭제
+                </button>
+            </form>
+        </div>
+    </div>
+
+</main>
+
+{{> layout/footer}}
